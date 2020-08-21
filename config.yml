@@ -1,0 +1,28 @@
+baseurl: "https://my-domain.de/"
+
+title: "my-site"
+theme: "my-theme"
+author: "Thoralf Rickert-Wendt"
+
+DefaultContentLanguage: "de"
+languages:
+  de:
+    contentDir: content/de
+    title: "meine-seite"
+    weight: 1
+  en:
+    contentDir: content/en
+    title: "my-site"
+    weight: 2
+
+defaultContentLanguageInSubdir: true
+disableHugoGeneratorInject: true
+enableEmoji: true
+enableRobotsTXT: true
+
+canonifyurls: true
+Paginate: 6
+
+pygmentsCodefences: true
+pygmentsCodefencesGuessSyntax: true
+pygmentsStyle: "friendly"

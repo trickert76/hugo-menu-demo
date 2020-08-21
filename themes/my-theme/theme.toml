@@ -1,0 +1,12 @@
+name = "my-theme"
+license = "MIT"
+licenselink = "https://github.com/trickert76/hugo-menu-demo/blob/master/LICENSE"
+description = "A theme based on Akazie Wood"
+homepage = "https://github.com/trickert76/hugo-menu-demo"
+tags = ["clean", "responsive"]
+features = ["responsive", "deeplinks" ]
+min_version = 0.1
+
+[author]
+    name ="trw"
+    homepage = "https://github.com/trickert76"

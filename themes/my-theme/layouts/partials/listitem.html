@@ -1,0 +1,15 @@
+<li class="duo post_item">
+ <div class="excerpt">
+{{ if .Params.tags }}
+  <div class="tags">
+{{ range .Params.tags }}
+    <div class="tag">
+     <a href="/de/tags/{{ replace (lower .) " " "-" }}/" class="tag_link"><span class="tag_name">#</span><span class="tag_value">{{ . }}</span></a>
+    </div>
+{{ end }}
+  </div>
+{{ end }}
+  <h3 class="post_link" style="margin-bottom: 0.2rem"><a href="{{ .Permalink }}">{{ .Title  }}</a></h3>
+  <p class="pale" style="margin-bottom: 2rem">{{ .Summary | truncate 150 }}</p>
+ </div>
+</li>

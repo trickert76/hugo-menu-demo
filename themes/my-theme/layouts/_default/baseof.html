@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang='{{ .Lang }}'>{{ $.Scratch.Set "section" .Section }}{{ if .IsHome }}{{ $.Scratch.Set "section" "home" }}{{ end }}
+<head>
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Site.Title }} - {{ .Title }}{{ end }}</title>
+  <meta charset='utf-8'>
+    
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  
+  <meta name="description" content="{{ with .Summary}}{{ . | truncate 150 }}{{ else }}{{ .Description }}{{ end }}" />
+  <meta name ="keywords" content="{{ .Keywords }}">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href= "/images/theme/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href= "/images/theme/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href= "/images/theme/icons/favicon-16x16.png">
+  <link rel="shortcut icon" href="/images/theme/icons/favicon.ico">
+
+  <link rel='canonical' href="{{ .Permalink }}">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Raleway&display=swap" rel="stylesheet">
+  <link href="/styles/main.css" type="text/css" rel="stylesheet">
+  <link href="/styles/notices.css" type="text/css" rel="stylesheet">
+  <link href="/styles/form-styles.css" type="text/css" rel="stylesheet">
+  <link href="/styles/tags.css" type="text/css" rel="stylesheet">
+
+  <style>
+  html, body{
+    font-family: 'Open Sans', sans-serif;
+    color: #000000;
+  }
+  .wrapper{
+    background-color: #ffffff;
+  }
+  h1, h2, h3, h4, h5, h6{
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  header.site-header{
+    background-color: #ffffff;
+  }
+  header.site-header div.header-inner nav.header-nav.desktop ul li a{
+    background-color: #ffffff;
+  }
+  
+  header.site-header div.header-inner nav.header-nav.desktop ul li a{
+    color: #000000;
+    font-family: 'Montserrat', sans-serif;
+  }
+  header.site-header div.header-inner nav.header-nav.desktop ul li a.active,
+  header.site-header div.header-inner nav.header-nav.desktop ul li a:hover{
+    background-color: #486144;
+    color: #ffffff;
+  }
+  footer.site-footer .footer-main{
+    font-family: 'Raleway', sans-serif;
+  }
+  .markdown ol li::before, .markdown ul:not(.sociallinks) li::before{
+    background-color: #486144;
+  }
+  .markdown blockquote{
+    background-color: #121810;
+    border: 1px solid #121810;
+    color: #ffffff;
+  }
+  .markdown code{
+    color: #8b0000;
+  }
+  a{
+    color: #8b0000;
+  }
+  a:hover{
+    color: #8b0000;
+  }
+  .screen-image .image-caption{
+    color: #ffffff;
+    text-shadow: 1px 1px 2px #000000;
+  }
+  main.site-content .modular.section-image .caption_1,
+  main.site-content .modular.section-map .caption_1{
+    background-color: #000000;
+    color: #ffffff;
+  }
+  main.site-content .modular.section-gallery .gallery>article{
+    border: 14px solid #ffffff;
+  }
+  
+  footer.site-footer{
+        background-color: #121810;
+        color: #ffffff;
+  }
+  footer.site-footer .footer-top{
+    background-color: #486144;
+  }
+  footer.site-footer .footer-main .footer-navigation ul li a{
+    color: #ffffff;
+  }
+  footer.site-footer .footer-main .footer-adress,
+  footer.site-footer .footer-main .footer-email,
+  footer.site-footer .footer-main .footer-email a{
+    color: #ffffff;
+  }
+  header.site-header div.header-inner div.mobile-toggle .pull span{
+    background-color: #486144;
+  }
+  header.site-header div.header-inner nav.header-nav.mobile{
+    background-color: #ffffff;
+  }
+    header.site-header div.header-inner nav.header-nav.mobile ul li a{
+    color: #000000;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+
+  header.site-header div.header-inner nav.header-nav.mobile ul li a.active{
+    color: #486144;
+  }
+  a.linksbutton, a.teamemail {
+    background-color:#486144;
+    color:#ffffff;
+    border:1px solid #486144;
+  }
+  a.linksbutton:hover, a.teamemail:hover {
+    background-color: #121810;
+    color:#ffffff;
+    border: 1px solid #ffffff;
+  }
+/*
+  header.site-header { height: $nav-height; }
+  header.site-header  div.header-inner img {
+     margin-top: $nav-height / 20;
+     height: $nav-height - ($nav-height / 10); }
+  header.site-header  div.header-inner ul li a { line-height: $nav-height; }
+  .image-caption{ padding-top: $nav-height; }
+  */
+
+  
+  footer.site-footer .footer-main .container.footerpage .upfootertext a {
+    color: #ffffff;
+  }
+
+  </style>
+ </head>
+ <body class="navexpanded page-{{ $.Scratch.Get "section" }}">
+  <div class="wrapper">
+   <header class="site-header fixed">
+    <div class="header-inner">
+     <div class="logo">
+      <a href="/"><img src="/images/theme/logo.png" alt="" /></a>
+     </div>
+     <div class="mobile-toggle">
+      <div class="pull">
+       <span></span>
+       <span></span>
+       <span></span>
+       <span></span>
+      </div>
+     </div>
+
+{{ $currentPage := . }}
+     <nav class="header-nav desktop">
+      <ul class="nav-lvl1" >
+{{ range .Site.Menus.main.Reverse }}
+{{ if .HasChildren }}
+       <li>
+        <a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a>
+        <ul class="nav-lvl2">
+{{ range .Children }}
+         <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a></li>
+{{ end }}
+        </ul>
+       </li>
+{{ else }}
+       <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" link>{{ .Name }}</a></li>
+{{ end }}
+{{ end }}
+      </ul>
+     </nav>
+     <nav class="header-nav mobile">
+      <ul class="nav-lvl1" >
+{{ range .Site.Menus.main.ByWeight }}
+{{ if .HasChildren }}
+       <li>
+        <a href="{{ .URL }}" class=" onlymobile"><span class="plussign">+</span><span class="minussign" style="display:none;">-</span>&nbsp;&nbsp;</a>
+        <a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a>
+        <ul class="nav-lvl2">
+{{ range .Children }}
+         <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a></li>
+{{ end }}
+        </ul>
+       </li>
+{{ else }}
+       <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a></li>
+{{ end }}
+{{ end }}
+      </ul>
+     </nav>
+    </div>
+   </header>
+   <div class="screen-image screen-{{ if .IsHome }}fullscreen{{ else }}top{{ end }}" style="background-image: url('/images/{{ .Params.image }}')">
+    <div class="image-caption color-new-line  ">
+     <h1 style="word-wrap: break-word">{{ .Title }}</h1>
+     <p>{{ .Description }}</p>
+    </div>
+   </div>
+   <main class="site-content">
+{{ block "main" . }}{{ end}}
+   </main>
+   <footer class="site-footer ">
+    <div class="footer-top"></div>
+    <div class="footer-main ">
+     <div class="footer-navigation">
+      <ul>
+{{ range .Site.Menus.footer.ByWeight }}
+       <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a></li>
+{{ end }}
+      </ul>
+     </div>
+     <div class="footer-adress">
+     </div>
+     <div class="footer-email">
+      <a href="mailto:"></a>
+     </div>
+     <div class="footer-adress">&copy; {{ now.Format "2006"}} xyz</div>
+    </div>
+   </footer>
+  </div>
+  <script src="/scripts/core.min.js"></script>
+  <script src="/scripts/app.min.js"></script>
+ </body>
+</html>

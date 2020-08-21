@@ -1,0 +1,24 @@
+{{ define "main" }}
+<section class="page section-modular">
+ <div class="row">
+  <article class="modular section-text col-12 col-md-12">
+<!-- <h2 class="heading">{{ .Summary }}</h2>  -->
+   <div class="markdown ">
+    <p>
+{{ .Content }}
+    </p>
+   </div>
+   <ul class='posts flex wrap blog' id = 'posts'>
+{{ range .Pages.ByTitle }}
+{{ if ne .Params.exclude_content true }}
+{{ partial "listitem.html" . }}
+{{ end }}
+{{ end }}
+   </ul>
+{{ if .Params.commentable }}
+{{ partial "comments.html" . }}
+{{ end }}
+  </article>
+ </div>
+</section>
+{{ end }}

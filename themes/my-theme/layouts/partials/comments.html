@@ -1,0 +1,39 @@
+<h3>Kommentare</h3>
+<div class="comments">
+{{ $.Scratch.Add "hasComments" 0 }}
+{{ $entryId := .File.UniqueID }}
+{{ if .Site.Data.comments }}
+{{ range $index, $comments := (index $.Site.Data.comments $entryId ) }}
+{{ $.Scratch.Add "hasComments" 1 }}
+ <div class="comment">
+  <img src="https://www.gravatar.com/avatar/{{ .email }}?s=100" alt="user icon" class="comment_user">
+  <div class="comment_body">
+   <div class="comment_meta">
+    <div class="comment_author">{{ .name }}</div>
+    <div class="comment_time" data-time="{{ .date }}"></div>
+   </div>
+{{ .comment | markdownify }}
+  </div>
+ </div>
+{{ end }}
+{{ end }}
+{{ if eq ($.Scratch.Get "hasComments") 0 }}
+ <p>Bisher wurde kein Kommentar angelegt.</p>
+{{ end }}
+
+ <h3>Neuer Kommentar</h3>
+ <form method="POST" action="my-script" class ="form form-comments" id="comments-form">
+  <input name="file" type="hidden" value="{{ .File.UniqueID }}">
+
+  <label class="form_label">Name</label>
+  <input name="name" type="text" placeholder="Name" class="form_input" required>
+  
+  <label class="form_label">E-mail</label>
+  <input name="email" type="email" placeholder="Email" class="form_input" required>
+
+  <label class="form_label">Comment</label>
+  <textarea name="comment" placeholder="Type in a comment ..." class="form_input form_input-message" required></textarea>
+
+  <input type="submit" value="Absenden" class="form_input form_input-submit">
+ </form>
+</div>

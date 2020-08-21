@@ -1,0 +1,59 @@
+{{ define "main" }}
+<section class="page section-modular">
+ <div class="row">
+  <article class="modular section-text col-12 col-md-12">
+{{ if .Params.blog }}
+{{ if .Params.tags }}
+  <div class="tags">
+{{ range .Params.tags }}
+    <div class="tag">
+     <a href="/de/tags/{{ replace (lower .) " " "-" }}/" class="tag_link"><span class="tag_name">#</span><span class="tag_value">{{ . }}</span></a>
+    </div>
+{{ end }}
+  </div>
+{{ end }}
+{{ with .Site.GetPage "team" }}{{ $.Scratch.Set "team" .URL }}{{ end }}
+{{ $author := (.Params.author) }}
+{{ range .Site.Data.authors }}
+{{ if eq .name $author }}
+  <p style="margin-bottom: 0rem">
+   Autor: <a href="{{ $.Scratch.Get "team" }}{{ .initials }}">{{ $author }}</a>
+  </p>
+{{ end }}
+{{ end }}
+  <p style="margin-bottom: 0rem">
+   Erstellt: {{ .PublishDate.Format "02. Februar 2006" }}
+  </p>
+  <p>
+   Lesezeit: {{ .ReadingTime }}min
+  </p>
+{{ end }}
+   <div class="markdown ">
+    <p>
+{{ .Content }}
+    </p>
+    </div>
+{{ if .Params.blog }}
+    <div class="markdown" style="display: flex; justify-content: space-between; margin-bottom: 2rem; margin-top: 2rem;">
+     <div>
+{{ if .PrevInSection }}
+      <a href="{{ .PrevInSection.URL }}">&lt;&lt; '{{ .PrevInSection.Title }}'</a>
+{{ end }}
+     </div>
+     <div>
+      <a href="{{ .CurrentSection.URL }}">{{ .CurrentSection.Title }}</a>
+     </div>
+     <div>
+{{ if .NextInSection }}
+      <a href="{{ .NextInSection.URL }}">'{{ .NextInSection.Title }}' &gt;&gt;</a>
+{{ end }}
+     </div>
+    </div>
+{{ end }}
+{{ if .Params.commentable }}
+{{ partial "comments.html" . }}
+{{ end }}
+  </article>
+ </div>
+</section>
+{{ end }}
