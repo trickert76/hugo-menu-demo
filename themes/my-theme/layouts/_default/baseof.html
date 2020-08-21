@@ -160,7 +160,7 @@
 {{ $currentPage := . }}
      <nav class="header-nav desktop">
       <ul class="nav-lvl1" >
-{{ range .Site.Menus.main.Reverse }}
+{{ range .Site.Menus.main.ByWeight.Reverse }}
 {{ if .HasChildren }}
        <li>
         <a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a>
@@ -211,7 +211,7 @@
     <div class="footer-main ">
      <div class="footer-navigation">
       <ul>
-{{ range .Site.Menus.footer.ByWeight }}
+{{ range .Site.Menus.main.ByWeight }}
        <li><a href="{{ .URL }}" class="{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }}active{{end}}" link>{{ .Name }}</a></li>
 {{ end }}
       </ul>
